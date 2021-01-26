@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrando y Ocultando Password con Jquery : Show Hide Password</title>
+    <link type="text/css" rel="shortcut icon" href="VC010001.png"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<form action="" class="login-form">
+    <h2 class="login-title">
+        Login VCard
+    </h2>
+    <img class="logo" src="VC010001.png" alt="">
+
+    <div class="input">
+        <i class="fa fa-user-lock"></i>
+        <input type="email" placeholder="Email" class="username">
+    </div>
+    <div class="input">
+        <i class="fa fa-unlock-alt" id="accionpassword"></i>
+        <input type="password" placeholder="Password" name="clave" id="miclave" class="password">
+    </div>
+
+    <button class="btn-login" value="Entrar">Entrar</button>
+</form>
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script type="text/javascript">
+$(document).ready(function () { //Leyendo el documento
+    $('.btn-login').attr("disabled", true); //Deshabilitando el Botton
+    $('.btn-login').addClass('colordisable'); //Agrego un clase por defecto al botton
+
+    $("#miclave").on("keyup", function() {
+        var miclave = $(this).val().length;
+        console.log(miclave);
+        if (miclave >= 4) {
+            console.log('Clave >= 4');
+            $('.btn-login').removeClass('colordisable'); //Quito la clase colordisable
+            $(".btn-login").attr('disabled',false); //Habilito el Botton
+            $(".btn-login").text("Entrar Ahora!"); //Cambio el texto del Botton
+        }else{
+            console.log('Clave <= 4');
+            $('.btn-login').addClass('colordisable'); //Agrego una clase al Botton
+            $(".btn-login").attr('disabled',true); //Deshabilitar el Botton
+            $(".btn-login").html('Entrar'); //Cambio el texto del Botton
+        }
+     
+
+    });
+
+$('#accionpassword').click(function(){ 
+    var clave = $("input#miclave").val(); //Capturando el valor del input
+    var tipoinput = document.querySelector('#miclave'); //Capturando el tipo de input
+    //var tipoinput = document.querySelectorAll('input[type=password]');
+
+    console.log('La Clave es: ' + clave + ' Tipo de input' + tipoinput);
+
+    if (tipoinput.type === 'password') {
+        tipoinput.type = "text";
+        $('#accionpassword').addClass('addbold'); //Cambiando el color del Icon fa-unlock-alt
+    } else{
+        tipoinput.type = 'password';
+        $('#accionpassword').removeClass('addbold'); //Quitando el color del Icon fa-unlock-alt
+    }
+
+  });
+});
+</script>
+
+</body>
+</html>
